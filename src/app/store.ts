@@ -6,11 +6,17 @@ import pokedexReducer from "../features/pokedex/pokedexSlice"
 export const store = configureStore({
     reducer: {
         [baseApi.reducerPath]: baseApi.reducer,
+
         auth: authReducer,
         pokedex: pokedexReducer,
     },
+
     middleware: (getDefaultMiddleware) => 
-        getDefaultMiddleware().concat(baseApi.middleware),
+        getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: ['api/executeQuery', 'api/executeQuery/fulfilled'],
+            },
+        }).concat(baseApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
