@@ -23,7 +23,7 @@ export default function PokemonGrid({
       {/* Pokemon Grid */}
       <Grid container spacing={3}>
         {pokemonList.map((pokemon) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={pokemon.name}>
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={pokemon.name}>
             <PokemonCard name={pokemon.name} url={pokemon.url} />
           </Grid>
         ))}

@@ -7,10 +7,10 @@ import {
   ToggleButton,
   Typography,
   Paper,
-  IconButton,
   AppBar,
   Toolbar,
   Button,
+  Stack,
 } from '@mui/material';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import ViewModuleIcon from '@mui/icons-material/ViewModule';
@@ -23,10 +23,14 @@ import { setViewMode, setSearchQuery, selectViewMode, selectSearchQuery } from '
 import { useGetPokemonListQuery } from '../services/pokeApi';
 import PokemonList from '../components/PokemonList';
 import PokemonGrid from '../components/PokemonGrid';
+import ThemeToggle from '../../../components/ui/ThemeToggle';
+import LanguageToggle from '../../../components/ui/LanguageToggle';
+import { useLanguage } from '../../../contexts/LanguageContext';
 
 export default function HomePage() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { t } = useLanguage();
   
   // Redux state
   const viewMode = useAppSelector(selectViewMode);
@@ -112,11 +116,15 @@ export default function HomePage() {
             Pokédex
           </Typography>
           <Typography variant="body1" sx={{ mr: 2 }}>
-            Welcome, {username}!
+            {t('welcome')}, {username}!
           </Typography>
-          <Button color="inherit" startIcon={<LogoutIcon />} onClick={handleLogout}>
-            Logout
-          </Button>
+          <Stack direction="row" spacing={1}>
+            <LanguageToggle />
+            <ThemeToggle />
+            <Button color="inherit" startIcon={<LogoutIcon />} onClick={handleLogout}>
+              {t('logout')}
+            </Button>
+          </Stack>
         </Toolbar>
       </AppBar>
 
@@ -135,7 +143,7 @@ export default function HomePage() {
           >
             {/* Search Field */}
             <TextField
-              placeholder="Search Pokémon by name..."
+              placeholder={t('searchPlaceholder')}
               variant="outlined"
               value={searchQuery}
               onChange={handleSearchChange}
@@ -154,11 +162,11 @@ export default function HomePage() {
             >
               <ToggleButton value="list" aria-label="list view">
                 <ViewListIcon sx={{ mr: 1 }} />
-                List
+                {t('list')}
               </ToggleButton>
               <ToggleButton value="grid" aria-label="grid view">
                 <ViewModuleIcon sx={{ mr: 1 }} />
-                Grid
+                {t('grid')}
               </ToggleButton>
             </ToggleButtonGroup>
           </Box>

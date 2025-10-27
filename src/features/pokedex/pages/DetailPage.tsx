@@ -23,8 +23,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {
   useGetPokemonDetailQuery,
   useGetPokemonSpeciesQuery,
-  useGetAbilityDetailQuery,
-  useGetMoveDetailQuery,
 } from '../services/pokeApi';
 import LoadingSpinner from '../../../components/ui/LoadingSpinner';
 import ImageGallery from '../components/ImageGallery';
@@ -34,13 +32,17 @@ import {
   capitalizeName,
   formatPokedexNumber,
   getTypeColor,
-  getSpanishDescription,
+  getDescription,
 } from '../../../utils/formatters';
+import ThemeToggle from '../../../components/ui/ThemeToggle';
+import LanguageToggle from '../../../components/ui/LanguageToggle';
+import { useLanguage } from '../../../contexts/LanguageContext';
 
 
 export default function DetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { t, language } = useLanguage();
 
   // Fetch pokemon data
   const {
@@ -87,8 +89,8 @@ export default function DetailPage() {
 
 
   const description = species
-    ? getSpanishDescription(species.flavor_text_entries)
-    : 'Loading description...';
+    ? getDescription(species.flavor_text_entries, language)
+    : t('loading');
 
   return (
     <>
@@ -103,9 +105,13 @@ export default function DetailPage() {
           >
             <ArrowBackIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ ml: 2 }}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, ml: 2 }}>
             {capitalizeName(pokemon.name)} {formatPokedexNumber(pokemon.id)}
           </Typography>
+          <Stack direction="row" spacing={1}>
+            <LanguageToggle />
+            <ThemeToggle />
+          </Stack>
         </Toolbar>
       </AppBar>
 
@@ -113,7 +119,7 @@ export default function DetailPage() {
       <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
         <Grid container spacing={3}>
           {/* Left Column */}
-          <Grid item xs={12} lg={6}>
+          <Grid size={{ xs: 12, lg: 6 }}>
             <Stack spacing={3}>
               {/* Image Gallery */}
               <ImageGallery
@@ -193,7 +199,7 @@ export default function DetailPage() {
           </Grid>
 
           {/* Right Column - Moves */}
-          <Grid item xs={12} lg={6}>
+          <Grid size={{ xs: 12, lg: 6 }}>
             <Card elevation={3} sx={{ height: '100%' }}>
               <CardContent>
                 <Typography variant="h6" gutterBottom>

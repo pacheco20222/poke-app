@@ -1,0 +1,35 @@
+# Dependencies (will be installed fresh in container)
+node_modules
+npm-debug.log
+
+# Git files (not needed in production)
+.git
+.gitignore
+
+# Development files
+.vscode
+*.md
+
+# Build artifacts (will be generated during Docker build)
+dist
+build
+.cache
+
+# Environment files (should be injected at runtime)
+.env
+.env.local
+.env.production
+
+# Testing files (not needed in production)
+coverage
+*.test.ts
+*.test.tsx
+**/__tests__
+**/__test__
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

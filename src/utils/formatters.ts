@@ -52,13 +52,22 @@ export const getBestSpriteUrl = (sprites: any): string => {
     );
 };
 
+export const getDescription = (entries: any[], language: 'en' | 'es'): string => {
+    if (!entries || entries.length === 0) {
+        return language === 'es' ? 'Descripción no disponible.' : 'Description not available.';
+    }
+
+    const langEntry = entries.find((entry) => entry.language.name === language);
+    if (langEntry) return langEntry.flavor_text.replace(/\f/g, ' ');
+
+    // Fallback to English if requested language not found
+    const fallback = entries.find((entry) => entry.language.name === 'en');
+    return fallback ? fallback.flavor_text.replace(/\f/g, ' ') : 
+        (language === 'es' ? 'Descripción no disponible.' : 'Description not available.');
+};
+
+// Legacy function for backward compatibility
 export const getSpanishDescription = (entries: any[]): string => {
-    if (!entries || entries.length === 0) return 'Descripción no disponible.';
-
-    const spanish = entries.find((entry) => entry.language.name === 'es');
-    if (spanish) return spanish.flavor_text.replace(/\f/g, ' ');
-
-    const english = entries.find((entry) => entry.language.name === 'en');
-    return english ? english.flavor_text.replace(/\f/g, ' ') : 'No description available.';
+    return getDescription(entries, 'es');
 };
 

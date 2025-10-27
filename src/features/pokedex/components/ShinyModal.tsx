@@ -62,7 +62,7 @@ export default function ShinyModal({
       <DialogContent dividers>
         <Grid container spacing={3}>
           {/* Normal Sprites */}
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Box textAlign="center">
               <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
                 Normal
@@ -102,7 +102,7 @@ export default function ShinyModal({
           </Grid>
 
           {/* Shiny Sprites */}
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Box textAlign="center">
               <Typography variant="subtitle1" fontWeight="bold" gutterBottom color="secondary">
                 Shiny

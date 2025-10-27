@@ -14,7 +14,6 @@ import {
   Stack,
   Typography,
   Avatar,
-  IconButton,
   TablePagination,
 } from '@mui/material';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
@@ -27,6 +26,7 @@ import {
   getTypeColor,
   getBestSpriteUrl,
 } from '../../../utils/formatters';
+import { useLanguage } from '../../../contexts/LanguageContext';
 
 
 interface PokemonRowProps {
@@ -184,6 +184,7 @@ export default function PokemonList({
   itemsPerPage,
   onPageChange,
 }: PokemonListProps) {
+  const { t } = useLanguage();
   const totalPages = Math.ceil(totalCount / itemsPerPage);
   const canGoPrevious = currentPage > 0;
   const canGoNext = currentPage < totalPages - 1;
@@ -213,22 +214,22 @@ export default function PokemonList({
           <TableHead>
             <TableRow sx={{ backgroundColor: 'primary.main' }}>
               <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>
-                Number
+                {t('number')}
               </TableCell>
               <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>
-                Name
+                {t('name')}
               </TableCell>
               <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>
-                Image
+                {t('image')}
               </TableCell>
               <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>
-                Types
+                {t('types')}
               </TableCell>
               <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>
-                Abilities
+                {t('abilities')}
               </TableCell>
               <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>
-                Actions
+                {t('actions')}
               </TableCell>
             </TableRow>
           </TableHead>
